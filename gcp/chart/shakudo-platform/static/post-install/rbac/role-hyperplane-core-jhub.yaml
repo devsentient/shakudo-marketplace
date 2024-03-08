@@ -1,0 +1,164 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: devs-role-core-krsb9h82
+  namespace: hyperplane-development
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - secrets
+  - services
+  - endpoints
+  - persistentvolumeclaims
+  - pods/log
+  - events
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - extensions
+  - apps
+  resources:
+  - replicasets
+  - deployments
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - networking.istio.io
+  resources:
+  - virtualservices
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - crds.hyperplane.com
+  resources:
+  - hyperplanepodspecs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - keda.sh
+  resources:
+  - scaledjobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - rolebindings
+  - roles
+  verbs:
+  - create
+  - list
+  - delete
+  - get
+- apiGroups: 
+  - ""
+  resources:
+  - serviceaccounts
+  - secrets
+  verbs:
+  - create
+  - list
+  - delete
+  - get
+# may be needed for keyvault if use-case is later expanded
+#- apiGroups:
+#  - secrets-store.csi.x-k8s.io
+#  resources:
+#  - secretproviderclasses
+#  - secretproviderclasspodstatuses
+#  verbs:
+#  - get
+#  - list
+#  - watch
+#- apiGroups:
+#  - storage.k8s.io
+#  resources:
+#  - csidrivers
+#  verbs:
+#  - get
+#  - list
+#  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jhub-role-binding-core-bafpbrjx
+  namespace: hyperplane-development
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: devs-role-core-krsb9h82
+subjects:
+- kind: ServiceAccount
+  name: hyperplane-operator
+  namespace: <TOREPLACE_RELEASE_NAMESPACE>

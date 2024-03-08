@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: cookie-logger
+  namespace: istio-system
+spec:
+  configPatches:
+  - applyTo: HTTP_FILTER
+    match:
+      context: "ANY"
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.filters.http.lua
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+          default_source_code:
+            inline_string: |
+              function envoy_on_request(request_handle)
+                local cookies = request_handle:headers():get("Cookie")
+                local host = request_handle:headers():get(":authority")
+                local path = request_handle:headers():get(":path")
+                local result = {}
+                if cookies ~= nil then
+                    for key, value in cookies:gmatch("([^=;]+)=([^=;]+)") do
+                        key = key:gsub("^%s*(.-)%s*$", "%1")
+                        if string.match(key, "^_sp_id") ~= nil then
+                            request_handle:logInfo("\t" ..path .. "\t" ..value .. "\t" ..host)
+                        end
+                    end
+                end
+              end
+              function envoy_on_response(response_handle)
+              end
+    
+    
+
+  
+    

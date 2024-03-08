@@ -1,0 +1,7 @@
+apiVersion: scheduling.k8s.io/v1
+globalDefault: true
+kind: PriorityClass
+metadata:
+  name: default-priority-qpv390bk
+preemptionPolicy: PreemptLowerPriority
+value: 10000

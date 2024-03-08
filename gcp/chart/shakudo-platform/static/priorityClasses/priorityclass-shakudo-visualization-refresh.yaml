@@ -1,0 +1,7 @@
+apiVersion: scheduling.k8s.io/v1
+globalDefault: false
+kind: PriorityClass
+metadata:
+  name: shakudo-visualization-refresh
+preemptionPolicy: PreemptLowerPriority
+value: 1000

@@ -1,0 +1,25 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: keycloak-istio-auth-policy-2zp8slg3
+  namespace: istio-system
+spec:
+  action: CUSTOM
+  provider:
+    name: oauth2-proxy
+  rules:
+  - to:
+    - operation:
+        hosts:
+        - <TOREPLACE_DOMAIN>
+        notPaths:
+        - /auth/*
+        - /oauth/*
+        - /.well-known/*
+  - to:
+    - operation:
+        hosts:
+        - '*.<TOREPLACE_DOMAIN>'
+  selector:
+    matchLabels:
+      app: istio-ingressgateway

@@ -1,0 +1,60 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   {{- if or (eq .Values.cloudProvider "AWS") (.Values.istio.loadBalancer.azureUseInternal) }}
+#   annotations:
+#     {{- if eq .Values.cloudProvider "AWS" }}
+#     kubernetes.io/ingress.class: alb
+#     #alb.ingress.kubernetes.io/target-type: ip
+#     ##service.beta.kubernetes.io/aws-load-balancer-name: shakudo-platform-dev
+#     ##service.beta.kubernetes.io/aws-load-balancer-type: external
+#     {{ end }}
+#     {{- if .Values.istio.loadBalancer.azureUseInternal }}
+#     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+#     {{- if .Values.istio.loadBalancer.azureSubnetName }}
+#     service.beta.kubernetes.io/azure-load-balancer-internal-subnet: {{ .Values.istio.loadBalancer.azureSubnetName | quote }}
+#     {{ end }}
+#     {{ end }}
+#   {{ end }}
+#   {{- if eq .Values.cloudProvider "OCI" }}
+#   annotations:
+#     oci.oraclecloud.com/load-balancer-type: "lb"
+#     service.beta.kubernetes.io/oci-load-balancer-shape: 100Mbps
+#     service.beta.kubernetes.io/oci-load-balancer-connection-idle-timeout: "300"
+#     service.beta.kubernetes.io/oci-load-balancer-backend-protocol: "TCP"
+#     service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "All"
+#     service.beta.kubernetes.io/oci-load-balancer-health-check-retries: "3"
+#     service.beta.kubernetes.io/oci-load-balancer-health-check-timeout: "3000"
+#     service.beta.kubernetes.io/oci-load-balancer-health-check-interval: "10000"
+#   {{ end }}
+#   labels:
+#     app: istio-ingressgateway
+#     install.operator.istio.io/owning-resource: unknown
+#     istio: ingressgateway
+#     istio.io/rev: default
+#     operator.istio.io/component: IngressGateways
+#     release: istio-ingress
+#   name: istio-ingressgateway
+#   namespace: istio-system
+# spec:
+#   ports:
+#   - name: status-port
+#     port: 15021
+#     protocol: TCP
+#     targetPort: 15021
+#   - name: http2
+#     port: 80
+#     protocol: TCP
+#     targetPort: 8080
+#   - name: https
+#     port: 443
+#     protocol: TCP
+#     targetPort: 8443
+#   selector:
+#     app: istio-ingressgateway
+#     istio: ingressgateway
+#   type: LoadBalancer
+#   {{- if .Values.istio.loadBalancer.manualIP }}
+#   loadBalancerIP: {{ .Values.istio.loadBalancer.manualIP }}
+#   {{ end }}
+

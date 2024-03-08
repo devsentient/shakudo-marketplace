@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prometheus-jhub-role-binding-1agrq182
+  namespace: hyperplane-development
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: devs-role-krsb9h82
+subjects:
+- kind: ServiceAccount
+  name: prometheus-k8s
+  namespace: <TOREPLACE_RELEASE_NAMESPACE>

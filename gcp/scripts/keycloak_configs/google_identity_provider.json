@@ -1,0 +1,15 @@
+{
+  "alias": "google",
+  "providerId": "google",
+  "enabled": true,
+  "updateProfileFirstLoginMode": "on",
+  "trustEmail": true,
+  "firstBrokerLoginFlowAlias": "first broker login",
+  "config": {
+    "hostedDomain": "<HOSTED_DOMAIN>",
+    "syncMode": "IMPORT",
+    "clientSecret": "<CLIENT_SECRET>",
+    "clientId": "<CLIENT_ID>",
+    "useJwksUrl": "true"
+  }
+}

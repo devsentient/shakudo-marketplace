@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns-w2v1dwkr
+  namespace: hyperplane-certmanager
+spec:
+  acme:
+    email: maintenance@shakudo.io
+    privateKeySecretRef:
+      name: issuer-account-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        cloudDNS:
+          project: <TOREPLACE_DNS_PROJECT>
+          serviceAccountSecretRef:
+            key: <TOREPLACE_DNS_SERVICEACCOUNT_KEYFILE_NAME>
+            name: service-account-key-certmanager-y7pshm5k

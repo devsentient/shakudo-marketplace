@@ -1,0 +1,77 @@
+apiVersion: v1
+data:
+  00_setup.py: import pandas as pd
+  API_SERVER_IMAGE: ""
+  AWS_DEFAULT_REGION: ""
+  AWS_REGION: ""
+  AWS_SECRET_ACCESS_KEY: ""
+  AWS_ACCESS_KEY_ID: ""
+  CLOUD_PROVIDER: ""
+  CLOUDSQL_PROXY_IMAGE: ""
+  CLOUDSQL_TERMINATOR_IMAGE: ""
+  DASK_POOL_4_32: dask-worker-pool
+  DASK_POOL_8_8: dask-worker-pool
+  DASK_POOL_8_16: dask-worker-pool
+  DASK_POOL_8_64: dask-worker-pool
+  DASK_POOL_16_16: dask-worker-pool
+  DASK_POOL_16_32: dask-worker-pool
+  DASK_POOL_16_128: dask-worker-pool
+  DASK_POOL_32_32: dask-worker-pool
+  DASK_POOL_96_768: dask-worker-pool
+  DATABASE_URL: postgresql://postgres:postgres@pgbouncer.<TOREPLACE_RELEASE_NAMESPACE>:6432/prisma
+  DIRECT_DATABASE_URL: postgresql://postgres:postgres@postgresql.<TOREPLACE_RELEASE_NAMESPACE>:5432/prisma?connection_limit=1000&connect_timeout=30&pool_timeout=30&socket_timeout=30
+  DATABASE_URL_NO_PARAMS: postgresql://postgres:postgres@pgbouncer.<TOREPLACE_RELEASE_NAMESPACE>:6432/prisma
+  PRISMA_DATASOURCE_DATABASE_URL: postgresql://postgres:postgres@pgbouncer.<TOREPLACE_RELEASE_NAMESPACE>:6432/prisma?pgbouncer=true
+  GCP_PROJECT: ""
+  GCR_SERVICE_ACCOUNT: gcr-jhub
+  GIT_SERVER_IMAGE: <TOREPLACE_GIT_SERVER_IMAGE>
+  GOOGLE_APPLICATION_CREDENTIALS: /etc/gke-service-account-json/gcp-service-account-credentials.json
+  GPU_CONDA_MOUNT: "false"
+  HIDE_HYPERHUB_PANEL: "false"
+  HYPERHUB_AUTH: keycloak
+  HYPERPLANE_CONDA_PIPELINE_VOLUME_NAME: conda-pipeline-pvc
+  HYPERPLANE_CUSTOM_DEPLOY_SECRET: custom-deploy-secrets-g994i1y2
+  HYPERPLANE_DEFAULT_PRIORITY_CLASS: default-priority-qpv390bk
+  HYPERPLANE_DOMAIN: <TOREPLACE_DOMAIN>
+  HYPERPLANE_GCR_SERVICE_ACCOUNT_DEFAULT_KEY: gcr-service-account-1r1byicw
+  HYPERPLANE_GCR_SERVICE_ACCOUNT_JHUB: gcr-jhub
+  HYPERPLANE_GCR_SERVICE_ACCOUNT_PIPELINES: gcr-pipelines
+  HYPERPLANE_GIT_BRANCH_NAME: <TOREPLACE_HYPERPLANE_GIT_BRANCH_NAME>
+  HYPERPLANE_GITHUB_DEPLOY_SECRET: github-deploy-key-ancrht4u
+  HYPERPLANE_GITSERVER_SSH_PUBLIC: <TOREPLACE_HYPERPLANE_GITSERVER_SSH_PUBLIC>
+  HYPERPLANE_JOB_DIR: "/tmp/git/monorepo"
+  HYPERPLANE_GPU_POOL: gpu-pool
+  HYPERPLANE_KEYCLOAK_CLIENT_ID: istio
+  HYPERPLANE_KEYCLOAK_REALM: Hyperplane
+  HYPERPLANE_MLFLOW_URL: postgresql://postgres:postgres@postgresql.<TOREPLACE_RELEASE_NAMESPACE
+  # HYPERPLANE__DEFAULT_NAMESPACE: {{default "default" .Values.defaultNamespace | quote }}
+  HYPERPLANE__DEFAULT_NAMESPACE: <TOREPLACE_RELEASE_NAMESPACE>
+  HYPERPLANE_PLACEHOLDER_PRIORITY_CLASS: placeholder-priority-sh9lkvnz
+  HYPERPLANE_SERVICE_ACCOUNT_KEY_SECRET_JHUB: service-account-key-jhub-sow17l42
+  HYPERPLANE_SERVICE_ACCOUNT_KEY_SECRET_PIPELINES: service-account-key-pipelines-dccri9ba
+  HYPERPLANE_TRITON_URL: hyperplane-triton:8000
+  JHUB_NAMESPACE: hyperplane-development
+  JHUB_NODE_POOL: <TOREPLACE_JHUB_NODE_POOL>
+  NOTIFY_SLACK: "0"
+  PIPELINES_NAMESPACE: hyperplane-workloads
+  REDIS_HOST: redis-master.<TOREPLACE_RELEASE_NAMESPACE>
+  REDIS_PASSWORD: password
+  SERVICE_ACCOUNT_KEY_CONTENT: <TOREPLACE_HYPERPLANE_SERVICE_ACCOUNT_JSON>
+  SERVICE_ACCOUNT_KEY_SECRET: service-account-key-jhub-sow17l42
+  SHOW_MODEL_SERVERS: "true"
+  SLACK_CHANNEL: ""
+  SLACK_TOKEN: ""
+  TRITON_MODEL_POLL_MODE: poll
+  TRITON_MODEL_REPOSITORY_PATH: triton/model_repository/
+  WEBHOOK_URL: ""
+  HYPERPLANE_GITHUB_SESSION_SECRET: github-deploy-key-ancrht4u
+  HYPERPLANE_JHUB_ROLE: devs-role-krsb9h82
+  HYPERPLANE_PIPELINES_ROLE: pipelines-role-cwxtsd6t
+  HYPERPLANE_PIPELINES_IMAGE_PULL_SECRET: gcr-service-account-key-pipelines-zsaw8epg
+  HYPERPLANE_JHUB_IMAGE_PULL_SECRET: gcr-service-account-jhub-42b5pz2e
+  HYPERPLANE__STRICT_HOST_KEY_CHECKING: <TOREPLACE_HYPERPLANE__STRICT_HOST_KEY_CHECKING>
+  GITSYNC_MONITOR_IMAGE: <TOREPLACE_GITSYNC_MONITOR_IMAGE>
+kind: ConfigMap
+metadata:
+  name: hyperplane-settings
+  namespace: hyperplane-workloads

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function init_paths(){
+    monorepo_root_dir="$(git rev-parse --show-toplevel)"
+    export kubectl_values=${monorepo_root_dir}/gcp/values.yaml
+    export kubectl_apply_with_values=${monorepo_root_dir}/gcp/scripts/kubectl_apply_with_values.sh
+    export shakudo_helm_chart_path=${monorepo_root_dir}/gcp/chart/shakudo-platform
+}
+
+function apply_certs() {
+    cert_path=$shakudo_helm_chart_path/static/certs
+
+    $kubectl_apply_with_values --source-file $cert_path/certificate-hyperplane-istio-istio-wc-ingress-cert-r3bqihtb.yaml --values-file $kubectl_values
+    $kubectl_apply_with_values --source-file $cert_path/certificate-istio-system-istio-wc-system-ingress-cert-4a9w5j2s.yaml --values-file $kubectl_values
+}
+
+init_paths
+
+# Disallow expansion of unset variables
+set -o nounset
+
+apply_certs
