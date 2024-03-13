@@ -16,6 +16,9 @@ function apply_k8_resources() {
     create_rbac
 
     create_gitserver
+
+    sleep 5
+
     create_cluster_issuer
     create_istio_service_mesh
 
