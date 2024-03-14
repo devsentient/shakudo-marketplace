@@ -249,7 +249,7 @@ Values which need to be Base64 encoded:
 
 ## Quick install with Google Cloud Marketplace
 
-Install this app to a Google Kubernetes Engine cluster via Google Cloud Marketplace, follow these [on-screen instructions](https://console.cloud.google.com/marketplace/details?project=shakudo-public)
+Install this app to a Google Kubernetes Engine cluster via Google Cloud Marketplace, follow these [on-screen instructions](https://console.cloud.google.com/marketplace/product/shakudo-public/shakudo?project=shakudo-public)
 
 ## Apply Post-install resources
 
