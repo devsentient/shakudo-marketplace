@@ -266,7 +266,10 @@ export RELEASE_NAMESPACE=MY_RELEASE_NAMESPACE
 export PROJECT_ID=MY_GCP_PROJECT_WITH_DNS
 export DOMAIN_NAME=my-cluster.dns-zone.com
 export DNS_ZONE=MY_DNS_ZONE
-export load_balancer_external_ip=REPLACE_ME
+
+export istio_system_json="$(kubectl get services -n "istio-system" -o=json)"
+export load_balancer_external_ip="$(jq -r '.items[] | select(.spec.type == "LoadBalancer") | .status.loadBalancer.ingress[0].ip' <<< ${istio_system_json})"
+
 gcloud dns --project=${PROJECT_ID} record-sets create ${DOMAIN_NAME}. --zone=${DNS_ZONE} --type=A --ttl=300 --rrdatas=${load_balancer_external_ip}
 gcloud dns --project=${PROJECT_ID} record-sets create "*.${DOMAIN_NAME}." --zone=${DNS_ZONE} --type=A --ttl=300 --rrdatas=${load_balancer_external_ip}
 ```
@@ -314,6 +317,8 @@ export HOSTED_DOMAIN=<Your SSO Domain>
 ./scripts/setup_sso.sh --client-id <OAUTH_CLIENT_ID> --client-secret <OAUTH_CLIENT_SECRET> --hosted-domain ${HOSTED_DOMAIN}
 ```
 
+Navigate to `https://${DOMAIN_NAME}` and log in with google sso.
+
 ## Create users manually instead of using SSO (optional)
 
 Get the keycloak admin password
@@ -322,4 +327,4 @@ Get the keycloak admin password
 kubectl get secret keycloak-login-pass -n test-namespace -o  jsonpath="{.data.password}" | base64 --decode
 ```
 
-Navigate to `https://${DOMAIN_NAME}/auth/` log in with username "admin" and password above, select realm "Hyperplane" navigate to the users page and create user accounts. 
+Navigate to `https://${DOMAIN_NAME}/auth/` and log in with username "admin" and password above, select realm "Hyperplane" navigate to the users page and create user accounts. 
